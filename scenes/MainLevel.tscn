@@ -1,0 +1,333 @@
+[gd_scene load_steps=17 format=3 uid="uid://bmp3rub1qawao"]
+
+[ext_resource type="Script" path="res://scripts/CameraMovement.gd" id="1_e3sy1"]
+[ext_resource type="Material" uid="uid://bqttdcmc6saer" path="res://mat/blue.tres" id="3_l1e3j"]
+[ext_resource type="Material" uid="uid://j30knxekd1mg" path="res://mat/red.tres" id="4_708cr"]
+[ext_resource type="Material" uid="uid://c7ap5jbud5e7q" path="res://mat/orange.tres" id="6_a4nje"]
+[ext_resource type="Script" path="res://scripts/DeactivateNode.gd" id="7_662wg"]
+[ext_resource type="Script" path="res://scripts/PlayerMovement.gd" id="8_jypg2"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_3i5jy"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ngawj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5bgxn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_nxiho"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_enpps"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_weexi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cbnuh"]
+
+[sub_resource type="Sky" id="Sky_2rw81"]
+sky_material = SubResource("ProceduralSkyMaterial_cbnuh")
+
+[sub_resource type="Environment" id="Environment_7x5gq"]
+background_mode = 2
+sky = SubResource("Sky_2rw81")
+tonemap_mode = 3
+ssao_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0py2t"]
+
+[node name="MainLevel" type="Node3D"]
+
+[node name="UI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="TextEdit" type="TextEdit" parent="UI/MarginContainer"]
+layout_mode = 2
+text = "Hello, world!"
+caret_blink = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer2/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="Label2" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "hello"
+scroll_fit_content_height = true
+
+[node name="Button2" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="Label3" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="Label4" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="Label5" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="Label6" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button6" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="Label7" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button7" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="Label8" type="Label" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "이학현"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button8" type="Button" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "이학현"
+
+[node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.846972, 0.450471, 0.282336, -0.527157, 0.642821, 0.555775, 0.0688687, -0.619562, 0.781921, 0, 5.01076, 0)
+shadow_enabled = true
+shadow_normal_bias = 1.5
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Objects"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Floor"]
+shape = SubResource("WorldBoundaryShape3D_3i5jy")
+
+[node name="Plane" type="MeshInstance3D" parent="Objects/Floor"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ngawj")
+skeleton = NodePath("../../..")
+
+[node name="RigidBodyBall" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0846028, 4.47382, -10.2785)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBall"]
+shape = SubResource("SphereShape3D_5bgxn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBall"]
+material_override = ExtResource("6_a4nje")
+mesh = SubResource("SphereMesh_nxiho")
+
+[node name="RigidBodyBall2" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.93209, -10.3574)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBall2"]
+shape = SubResource("SphereShape3D_5bgxn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBall2"]
+material_override = ExtResource("6_a4nje")
+mesh = SubResource("SphereMesh_nxiho")
+
+[node name="RigidBodyBall3" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.370564, 6.02535, -10.2388)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBall3"]
+shape = SubResource("SphereShape3D_5bgxn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBall3"]
+material_override = ExtResource("6_a4nje")
+mesh = SubResource("SphereMesh_nxiho")
+
+[node name="RigidBodyBox" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(0.747671, 0, -0.66407, 0, 1, 0, 0.66407, 0, 0.747671, -0.0846028, 3.45208, -10.2785)
+script = ExtResource("7_662wg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox"]
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox"]
+material_override = ExtResource("6_a4nje")
+mesh = SubResource("BoxMesh_weexi")
+
+[node name="RigidBodyBox2" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.448458, 1.91947, -10.2785)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox2"]
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox2"]
+material_override = ExtResource("6_a4nje")
+mesh = SubResource("BoxMesh_weexi")
+
+[node name="RigidBodyBox3" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.696838, 1.99827, -10.2785)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox3"]
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox3"]
+material_override = ExtResource("6_a4nje")
+mesh = SubResource("BoxMesh_weexi")
+
+[node name="RigidBodyBox6" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99938, 1.50652, -4.50286)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox6"]
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox6"]
+material_override = ExtResource("3_l1e3j")
+mesh = SubResource("BoxMesh_weexi")
+skeleton = NodePath("../../RigidBodyBox6")
+
+[node name="RigidBodyBox7" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3428, 2.50641, -4.3047)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox7"]
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox7"]
+material_override = ExtResource("3_l1e3j")
+mesh = SubResource("BoxMesh_weexi")
+
+[node name="RigidBodyBox8" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.857, 0.5, -4.077)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox8"]
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox8"]
+material_override = ExtResource("3_l1e3j")
+mesh = SubResource("BoxMesh_weexi")
+skeleton = NodePath("../../RigidBodyBox8")
+
+[node name="RigidBodyBox4" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61227, 0.5, -4.35151)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox4"]
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox4"]
+material_override = ExtResource("3_l1e3j")
+mesh = SubResource("BoxMesh_weexi")
+
+[node name="RigidBodyBox5" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(0.850921, 0, -0.525293, 0, 1, 0, 0.525293, 0, 0.850921, -0.855612, 1, -4.524)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/RigidBodyBox5"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/RigidBodyBox5"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+material_override = ExtResource("4_708cr")
+mesh = SubResource("BoxMesh_weexi")
+skeleton = NodePath("../../RigidBodyBox5")
+
+[node name="CameraContainer" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("1_e3sy1")
+player = NodePath("../Player")
+
+[node name="TweenContainer" type="Node3D" parent="CameraContainer"]
+
+[node name="Camera3d" type="Camera3D" parent="CameraContainer/TweenContainer"]
+environment = SubResource("Environment_7x5gq")
+fov = 65.0
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera_container")]
+wall_min_slide_angle = 0.0
+script = ExtResource("8_jypg2")
+camera_container = NodePath("../CameraContainer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0py2t")
