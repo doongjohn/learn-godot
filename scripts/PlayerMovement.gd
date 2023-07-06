@@ -57,7 +57,8 @@ func _process(_delta: float):
 
 
 func apply_gravity(delta: float):
-	velocity.y = max(velocity.y - gravity * delta, -max_fall_speed)
+	if !is_landed:
+		velocity.y = max(velocity.y - gravity * delta, -max_fall_speed)
 
 
 func land():
