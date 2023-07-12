@@ -11,19 +11,15 @@ func set_active(active: bool):
 
 
 func _ready():
+	coro()
+	print('hello')
+
 	set_active(false)
 	await get_tree().create_timer(2.0).timeout
 	set_active(true)
 
 
-var run: bool = true
-func test():
-	await get_tree().create_timer(2.0).timeout
-	print("wow!")
-	run = true
-
-
-func _process(_delta: float):
-	if run:
-		test()
-		run = false
+func coro():
+	while true:
+		await get_tree().create_timer(2.0).timeout
+		print("wow!")
