@@ -11,7 +11,7 @@ func set_active(active: bool):
 
 
 func _ready():
-	coro()
+	coro() # learn how to stop coroutine
 	print('hello')
 
 	set_active(false)

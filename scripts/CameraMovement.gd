@@ -1,7 +1,7 @@
 extends Node3D
 
 
-@export var sensitivity: float = 0.002
+@export var sensitivity: float = 0.0022
 @export var player: Node3D
 @export var y_offset: float = 2
 @onready var camera: Camera3D = $TweenContainer/Camera3d

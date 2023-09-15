@@ -43,17 +43,20 @@ func _process(_delta: float):
 	elif Input.is_key_pressed(KEY_A): input_dir.x -= 1
 	input_dir = input_dir.normalized()
 
-	# calculate walk vector
-	var camera_global_basis = camera_container.get_global_transform().basis
-	var walk_dir_foward = camera_global_basis.z * input_dir.z
-	var walk_dir_right = camera_global_basis.x * input_dir.x
-	walk_dir = (walk_dir_foward + walk_dir_right)
-	if walk_dir != Vector3.ZERO:
-		prev_walk_dir = walk_dir
-
 	# get jump input
 	if Input.is_key_pressed(KEY_SPACE):
 		input_dir.y = 1
+
+	calculate_walk_dir()
+
+
+func _physics_process(delta: float):
+	apply_gravity(delta)
+	check_is_landed()
+	walk(delta)
+	jump()
+
+	move_and_slide()
 
 
 func apply_gravity(delta: float):
@@ -61,7 +64,7 @@ func apply_gravity(delta: float):
 		velocity.y = max(velocity.y - gravity * delta, -max_fall_speed)
 
 
-func land():
+func check_is_landed():
 	if is_on_floor():
 		if !is_landed:
 			is_landed = true
@@ -80,10 +83,21 @@ func on_landed():
 		camera_tween.tween_property(camera_tween_container, 'position', camera_orig_position, 0.2)
 
 
+func calculate_walk_dir():
+	var camera_global_basis = camera_container.get_global_transform().basis
+	var walk_dir_foward = camera_global_basis.z * input_dir.z
+	var walk_dir_right = camera_global_basis.x * input_dir.x
+	walk_dir = (walk_dir_foward + walk_dir_right)
+	if walk_dir != Vector3.ZERO:
+		prev_walk_dir = walk_dir
+
+
 func walk(delta: float):
 	if walk_dir == Vector3.ZERO:
+		# decelerate
 		walk_speed = max(0, walk_speed - walk_speed_decel * delta)
 	else:
+		# accelerate
 		walk_speed = max(min_walk_speed, walk_speed + walk_speed_accel * delta)
 		walk_speed = min(max_walk_speed, walk_speed)
 
@@ -94,8 +108,8 @@ func walk(delta: float):
 	# walk camera tween
 	if walk_speed > 80 and camera_tween and !camera_tween.is_running():
 		camera_tween = create_tween().set_trans(Tween.TRANS_SINE)
-		var down_position = camera_tween_container.position + Vector3.DOWN * 0.05
-		camera_tween.tween_property(camera_tween_container, 'position', down_position, 0.15).from(camera_orig_position)
+		var down_position = camera_tween_container.position + Vector3.DOWN * min(walk_speed * 0.0005, 0.1)
+		camera_tween.tween_property(camera_tween_container, 'position', down_position, (walk_speed * 0.001) / 1).from(camera_orig_position)
 		camera_tween.tween_property(camera_tween_container, 'position', camera_orig_position, 0.2)
 
 
@@ -105,12 +119,3 @@ func jump():
 
 	# reset input
 	input_dir.y = 0
-
-
-func _physics_process(delta: float):
-	apply_gravity(delta)
-	land()
-	walk(delta)
-	jump()
-
-	move_and_slide()
