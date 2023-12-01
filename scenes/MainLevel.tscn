@@ -1,11 +1,26 @@
-[gd_scene load_steps=17 format=3 uid="uid://bmp3rub1qawao"]
+[gd_scene load_steps=21 format=3 uid="uid://bmp3rub1qawao"]
 
+[ext_resource type="Material" uid="uid://cewp2irxf4461" path="res://mat/grey.tres" id="1_0n3iw"]
 [ext_resource type="Script" path="res://scripts/CameraMovement.gd" id="1_e3sy1"]
 [ext_resource type="Material" uid="uid://bqttdcmc6saer" path="res://mat/blue.tres" id="3_l1e3j"]
 [ext_resource type="Material" uid="uid://j30knxekd1mg" path="res://mat/red.tres" id="4_708cr"]
 [ext_resource type="Material" uid="uid://c7ap5jbud5e7q" path="res://mat/orange.tres" id="6_a4nje"]
 [ext_resource type="Script" path="res://scripts/DeactivateNode.gd" id="7_662wg"]
 [ext_resource type="Script" path="res://scripts/PlayerMovement.gd" id="8_jypg2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mdu07"]
+
+[sub_resource type="Sky" id="Sky_lxonn"]
+sky_material = SubResource("ProceduralSkyMaterial_mdu07")
+
+[sub_resource type="Environment" id="Environment_v4614"]
+background_mode = 2
+sky = SubResource("Sky_lxonn")
+ambient_light_source = 3
+tonemap_mode = 3
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_3i5jy"]
 
@@ -35,7 +50,6 @@ ssao_enabled = true
 [node name="MainLevel" type="Node3D"]
 
 [node name="UI" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +73,6 @@ theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="TextEdit" type="TextEdit" parent="UI/MarginContainer"]
-visible = false
 layout_mode = 2
 text = "Hello, world!"
 caret_blink = true
@@ -103,6 +116,10 @@ layout_mode = 2
 text = "이학현"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "this is single line text input"
 
 [node name="TextEdit" type="TextEdit" parent="UI/MarginContainer2/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -181,25 +198,31 @@ layout_mode = 2
 mouse_filter = 1
 text = "이학현"
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v4614")
+
 [node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.846972, 0.450471, 0.282336, -0.527157, 0.642821, 0.555775, 0.0688687, -0.619562, 0.781921, 0, 5.01076, 0)
 shadow_enabled = true
-shadow_normal_bias = 1.5
+shadow_normal_bias = 10.0
+shadow_blur = 0.8
 
 [node name="Objects" type="Node3D" parent="."]
 
 [node name="Floor" type="StaticBody3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Floor"]
 shape = SubResource("WorldBoundaryShape3D_3i5jy")
 
 [node name="Plane" type="MeshInstance3D" parent="Objects/Floor"]
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+material_override = ExtResource("1_0n3iw")
 mesh = SubResource("PlaneMesh_ngawj")
 skeleton = NodePath("../../..")
 
 [node name="Ball" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0846028, 4.47382, -10.2785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0846028, 2.05513, -10.2785)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Ball"]
 shape = SubResource("SphereShape3D_5bgxn")
@@ -209,7 +232,7 @@ material_override = ExtResource("6_a4nje")
 mesh = SubResource("SphereMesh_nxiho")
 
 [node name="Ball2" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.93209, -10.3574)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5134, -10.3574)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Ball2"]
 shape = SubResource("SphereShape3D_5bgxn")
@@ -219,7 +242,7 @@ material_override = ExtResource("6_a4nje")
 mesh = SubResource("SphereMesh_nxiho")
 
 [node name="Ball3" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.370564, 6.02535, -10.2388)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.370564, 3.60666, -10.2388)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Ball3"]
 shape = SubResource("SphereShape3D_5bgxn")
@@ -229,7 +252,7 @@ material_override = ExtResource("6_a4nje")
 mesh = SubResource("SphereMesh_nxiho")
 
 [node name="Box" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(0.747671, 0, -0.66407, 0, 1, 0, 0.66407, 0, 0.747671, -0.0846028, 3.45208, -10.2785)
+transform = Transform3D(0.747671, 0, -0.66407, 0, 1, 0, 0.66407, 0, 0.747671, -0.0846028, 1.03339, -10.2785)
 script = ExtResource("7_662wg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box"]
@@ -240,7 +263,7 @@ material_override = ExtResource("6_a4nje")
 mesh = SubResource("BoxMesh_weexi")
 
 [node name="Box2" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.448458, 1.91947, -10.2785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.448458, -0.499219, -10.2785)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box2"]
 shape = SubResource("BoxShape3D_enpps")
@@ -250,7 +273,7 @@ material_override = ExtResource("6_a4nje")
 mesh = SubResource("BoxMesh_weexi")
 
 [node name="Box3" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.696838, 1.99827, -10.2785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.696838, -0.420419, -10.2785)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box3"]
 shape = SubResource("BoxShape3D_enpps")
@@ -260,7 +283,7 @@ material_override = ExtResource("6_a4nje")
 mesh = SubResource("BoxMesh_weexi")
 
 [node name="Box4" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(0.850921, 0, -0.525293, 0, 1, 0, 0.525293, 0, 0.850921, -0.855612, 1, -4.524)
+transform = Transform3D(0.850921, 0, -0.525293, 0, 1, 0, 0.525293, 0, 0.850921, -0.855612, -0.0120299, -4.524)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box4"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -271,8 +294,20 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 material_override = ExtResource("4_708cr")
 mesh = SubResource("BoxMesh_weexi")
 
+[node name="Box10" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(0.820741, 0, -0.571301, 0, 1, 0, 0.571301, 0, 0.820741, -0.911554, 1.52156, -4.18486)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box10"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_enpps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/Box10"]
+material_override = ExtResource("3_l1e3j")
+mesh = SubResource("BoxMesh_weexi")
+skeleton = NodePath("../../Box10")
+
 [node name="Box6" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3428, 2.50641, -4.3047)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3428, 1.50444, -4.3047)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box6"]
 shape = SubResource("BoxShape3D_enpps")
@@ -282,7 +317,7 @@ material_override = ExtResource("3_l1e3j")
 mesh = SubResource("BoxMesh_weexi")
 
 [node name="Box7" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99938, 1.50652, -4.50286)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99938, 0.504545, -4.50286)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box7"]
 shape = SubResource("BoxShape3D_enpps")
@@ -292,7 +327,7 @@ material_override = ExtResource("3_l1e3j")
 mesh = SubResource("BoxMesh_weexi")
 
 [node name="Box8" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.857, 0.5, -4.077)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.857, -0.501975, -4.077)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box8"]
 shape = SubResource("BoxShape3D_enpps")
@@ -302,7 +337,7 @@ material_override = ExtResource("3_l1e3j")
 mesh = SubResource("BoxMesh_weexi")
 
 [node name="Box9" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61227, 0.5, -4.35151)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61227, -0.501975, -4.35151)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Box9"]
 shape = SubResource("BoxShape3D_enpps")
