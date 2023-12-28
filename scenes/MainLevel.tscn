@@ -46,6 +46,7 @@ tonemap_mode = 3
 ssao_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0py2t"]
+height = 3.0
 
 [node name="MainLevel" type="Node3D"]
 
@@ -349,6 +350,7 @@ mesh = SubResource("BoxMesh_weexi")
 [node name="CameraContainer" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_e3sy1")
 player = NodePath("../Player")
+y_offset = 2.5
 
 [node name="TweenContainer" type="Node3D" parent="CameraContainer"]
 
@@ -362,5 +364,5 @@ script = ExtResource("8_jypg2")
 camera_container = NodePath("../CameraContainer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_0py2t")

@@ -19,6 +19,7 @@ var is_landed: bool = false
 @export var walk_speed_decel: float = 600
 var input_dir: Vector3 = Vector3.ZERO
 var prev_walk_dir: Vector3 = Vector3.ZERO
+var walk_opposite: bool = false
 var walk_dir: Vector3 = Vector3.ZERO
 var walk_speed: float
 
@@ -37,10 +38,14 @@ func _process(_delta: float):
 	input_dir.x = 0
 
 	# get walk input
-	if Input.is_key_pressed(KEY_W): input_dir.z -= 1
-	elif Input.is_key_pressed(KEY_S): input_dir.z += 1
-	if Input.is_key_pressed(KEY_D): input_dir.x += 1
-	elif Input.is_key_pressed(KEY_A): input_dir.x -= 1
+	if Input.is_key_pressed(KEY_W):
+		input_dir.z -= 1
+	elif Input.is_key_pressed(KEY_S):
+		input_dir.z += 1
+	if Input.is_key_pressed(KEY_D):
+		input_dir.x += 1
+	elif Input.is_key_pressed(KEY_A):
+		input_dir.x -= 1
 	input_dir = input_dir.normalized()
 
 	# get jump input
@@ -89,6 +94,7 @@ func calculate_walk_dir():
 	var walk_dir_right = camera_global_basis.x * input_dir.x
 	walk_dir = (walk_dir_foward + walk_dir_right)
 	if walk_dir != Vector3.ZERO:
+		walk_opposite = 0 > prev_walk_dir.dot(walk_dir)
 		prev_walk_dir = walk_dir
 
 
@@ -101,16 +107,21 @@ func walk(delta: float):
 		walk_speed = max(min_walk_speed, walk_speed + walk_speed_accel * delta)
 		walk_speed = min(max_walk_speed, walk_speed)
 
+	if walk_opposite:
+		walk_opposite = false
+		walk_speed *= 0.35
+
 	var walk_velocity = prev_walk_dir * (walk_speed * delta)
 	velocity.x = walk_velocity.x
 	velocity.z = walk_velocity.z
 
 	# walk camera tween
 	if walk_speed > 80 and camera_tween and !camera_tween.is_running():
-		camera_tween = create_tween().set_trans(Tween.TRANS_SINE)
 		var down_position = camera_tween_container.position + Vector3.DOWN * min(walk_speed * 0.0005, 0.1)
-		camera_tween.tween_property(camera_tween_container, 'position', down_position, (walk_speed * 0.001) / 1).from(camera_orig_position)
-		camera_tween.tween_property(camera_tween_container, 'position', camera_orig_position, 0.2)
+		var tween_time = clamp(1 / (walk_speed * 0.025), 0.1, 0.3)
+		camera_tween = create_tween().set_trans(Tween.TRANS_SINE)
+		camera_tween.tween_property(camera_tween_container, 'position', down_position, tween_time).from(camera_orig_position)
+		camera_tween.tween_property(camera_tween_container, 'position', camera_orig_position, tween_time + 0.05)
 
 
 func jump():
